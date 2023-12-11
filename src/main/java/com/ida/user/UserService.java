@@ -2,6 +2,7 @@ package com.ida.user;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +29,15 @@ public class UserService {
 
     }
 
+    @Transactional
+    public User createUser(User newUser) {
+        // ユーザーの作成ロジックを実装
+        // userMapperを使用してデータベースにユーザーを挿入
+        // ...
+        return newUser;
+    }
+
+
 }
+
+

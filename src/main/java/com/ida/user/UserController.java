@@ -4,10 +4,7 @@ package com.ida.user;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -31,6 +28,14 @@ public class UserController {
     public User getUser(@PathVariable("id") int id) {
         return userService.findUser(id);
     }
+
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@RequestBody User newUser) {
+        User createdUser = userService.createUser(newUser);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleUserNotFoundException(UserNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
