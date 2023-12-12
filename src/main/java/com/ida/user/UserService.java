@@ -2,7 +2,7 @@ package com.ida.user;
 
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +18,7 @@ public class UserService {
     public List<User> getAllUsers() {
         return userMapper.findAll();
     }
+
     public User findUser(int id) {
         Optional<User> user = this.userMapper.findById(id);
         if (user.isPresent()) {
@@ -25,7 +26,13 @@ public class UserService {
         } else {
             throw new UserNotFoundException("Not found");
         }
-
     }
 
+    @Transactional
+    public User createUser(User newUser) {
+
+        userMapper.insertUser(newUser);
+
+        return newUser;
+    }
 }
